@@ -7,7 +7,7 @@ EXPOSE 80
 WORKDIR /app
 
 # 创建非 root 用户
-RUN useradd -r -u 1001 -g nginx app-user
+RUN useradd -r -u 10001 -g nginx app-user
 
 # 复制配置文件和脚本
 COPY nginx.conf /etc/nginx/nginx.conf
