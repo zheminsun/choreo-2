@@ -6,8 +6,8 @@ EXPOSE 80
 # 设置工作目录
 WORKDIR /app
 
-# 创建非 root 用户
-RUN useradd -r -u 10001 -g nginx app-user
+# 创建非 root 用户，并设置 UID 在 10000 到 20000 之间
+RUN useradd -r -u 10001 -g nginx app-user  # UID 设置为 10001
 
 # 复制配置文件和脚本
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -25,8 +25,8 @@ RUN apt-get update && apt-get install -y wget unzip iproute2 && \
 # 修改文件和目录权限
 RUN chown -R app-user:nginx /app /var/log/nginx /var/run /etc/nginx
 
-# 以非 root 用户运行
-USER app-user
+# 以非 root 用户运行，UID 设置为 10001
+USER 10001
 
 # 设置入口点
 ENTRYPOINT [ "./entrypoint.sh" ]
