@@ -8,13 +8,13 @@ VLESS_WSPATH=${VLESS_WSPATH:-'/wls'}
 sed -i "s#UUID#$UUID#g;s#VMESS_WSPATH#${VMESS_WSPATH}#g;s#VLESS_WSPATH#${VLESS_WSPATH}#g" config.json
 sed -i "s#VMESS_WSPATH#${VMESS_WSPATH}#g;s#VLESS_WSPATH#${VLESS_WSPATH}#g" /etc/nginx/nginx.conf
 
-# 伪装 v2ray 执行文件
+# 伪装 Xray 执行文件
 RELEASE_RANDOMNESS=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 6)
-mv v ${RELEASE_RANDOMNESS}
+mv x ${RELEASE_RANDOMNESS}
 cat config.json | base64 > config
 rm -f config.json
 
-# 运行 nginx 和 v2ray
+# 运行 nginx 和 Xray
 nginx -g "daemon off;" &
 base64 -d config > config.json
 ./${RELEASE_RANDOMNESS} run
